@@ -1,7 +1,6 @@
-export type TocItem = { id: string; text: string; level: number };
+import { slugifyHeading } from "@/lib/slugify";
 
-const slugify = (s: string) =>
-    s.toLowerCase().trim().replace(/[^\w\s-]/g, "").replace(/\s+/g, "-");
+export type TocItem = { id: string; text: string; level: number };
 
 export function getTocFromMdx(mdx: string): TocItem[] {
     return mdx
@@ -12,6 +11,6 @@ export function getTocFromMdx(mdx: string): TocItem[] {
         .map((m) => {
             const level = m![1].length;
             const text = m![2].trim();
-            return { id: slugify(text), text, level };
+            return { id: slugifyHeading(text), text, level };
         });
 }
