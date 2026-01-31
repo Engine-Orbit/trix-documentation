@@ -2,9 +2,13 @@ import { AppShell } from "@/components/shell/app-shell";
 import { getMdxBySlug } from "@/lib/mdx";
 import { getTocFromMdx } from "@/lib/toc";
 import { MDXRemote } from "next-mdx-remote/rsc";
-import { useMDXComponents } from "@/mdx-components"; // ✅ ADD THIS
+import { useMDXComponents } from "@/mdx-components";
 
-export default function DocsPage({ params }: { params: { slug?: string[] } }) {
+export default async function DocsPage({
+    params,
+}: {
+    params: { slug?: string[] };
+}) {
     const slug = params.slug ?? ["user-guides", "quick-start", "introduction"];
     const { content } = getMdxBySlug(slug);
     const toc = getTocFromMdx(content);
